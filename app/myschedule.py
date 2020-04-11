@@ -1,16 +1,36 @@
 import heapq
+import os
+import csv
 from collections import defaultdict
 # (inc, serv, alert) sum() = total people that day
 NUM_PEOPLE = 35
+print(os.getcwd())
 
 people = []
 counts = dict()
-for i in range(NUM_PEOPLE):
-  people.append('Person ' + str(i))
-  counts['Person ' + str(i)] = dict()
-  counts['Person ' + str(i)]['incident'] = 0
-  counts['Person ' + str(i)]['service'] = 0
-  counts['Person ' + str(i)]['alert'] = 0
+first = True
+with open('./app/counts.csv', 'rt') as f:
+    data = csv.reader(f)
+    for row in data:
+        if first:
+            first = False
+            continue
+        print(row)
+        r = row
+        people.append(r[0])
+        counts[r[0]] = dict()
+        counts[r[0]]['incident'] = int(r[1])
+        counts[r[0]]['service'] = int(r[2])
+        counts[r[0]]['alert'] = int(r[3])
+
+# people = []
+# counts = dict()
+# for i in range(NUM_PEOPLE):
+#   people.append('Person ' + str(i))
+#   counts['Person ' + str(i)] = dict()
+#   counts['Person ' + str(i)]['incident'] = 0
+#   counts['Person ' + str(i)]['service'] = 0
+#   counts['Person ' + str(i)]['alert'] = 0
 
 # ignore
 incidents = [(0, p) for p in people]
@@ -98,16 +118,28 @@ def printCounts():
     s = v['incident'] + v['service'] + v['alert']
     print(k, ': ', v, ', total: ', s )
 
+def write_count():
+    with open('./app/counts.csv', 'w') as f:
+        wr = csv.writer(f)
+        wr.writerow(['name', 'incident', 'service', 'alert'])
+        for k,v in counts.items():
+            wr.writerow([k, v['incident'], v['service'], v['alert']])
+
+
 def getDailySchedule(i, r, a, l):
     peeps = [people[idx] for idx in l]
-    return (getSchedule(i, r, a, peeps), counts)
+    sch = getSchedule(i, r, a, peeps)
+    write_count()
+    return (sch, counts)
 
 def resetCount():
-    for i in range(NUM_PEOPLE):
-      counts['Person ' + str(i)] = dict()
-      counts['Person ' + str(i)]['incident'] = 0
-      counts['Person ' + str(i)]['service'] = 0
-      counts['Person ' + str(i)]['alert'] = 0
+    for p in people:
+      counts[p] = dict()
+      counts[p]['incident'] = 0
+      counts[p]['service'] = 0
+      counts[p]['alert'] = 0
+    write_count()
+
 def getCount():
     return counts
 # getSchedule (i, r, a, [])
