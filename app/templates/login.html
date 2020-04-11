@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Input Today's Numbers</h1>
+    <form action="" method="get" novalidate>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.nincidents.label }}<br>
+            {{ form.nincidents(size=32) }}<br>
+            {% for error in form.nincidents.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.nrfc.label }}<br>
+            {{ form.nrfc(size=32) }}<br>
+            {% for error in form.nrfc.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.nalerts.label }}<br>
+            {{ form.nalerts(size=32) }}<br>
+            {% for error in form.nalerts.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.people.label }}<br>
+            {{ form.people(size=32) }}<br>
+            {% for error in form.people.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+	<p>
+	    {{ form.showcount.label }}
+	    {{ form.showcount(value='n') }}
+	</p>
+	<p>
+	    {{ form.reset.label }}
+	    {{ form.reset(value='n') }}
+	</p>
+        <p>{{ form.submit() }}</p>
+    </form>
+{% endblock %}
