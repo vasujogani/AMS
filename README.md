@@ -9,7 +9,7 @@
 <code> kill -9 <portnum> </code>
 
 
-<code> git clone </code>
+<code> git clone https://github.com/vasujogani/AMS.git </code>
 
 <code> git add .</code>
 
