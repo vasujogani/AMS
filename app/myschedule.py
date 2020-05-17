@@ -33,9 +33,9 @@ with open('./app/counts.csv', 'rt') as f:
 #   counts['Person ' + str(i)]['alert'] = 0
 
 # ignore
-incidents = [(0, p) for p in people]
-alerts = [(0, p) for p in people]
-services = [(0, p) for p in people]
+incidents = [(counts[p]['incident'], p) for p in people]
+alerts = [(counts[p]['alert'], p) for p in people]
+services = [(counts[p]['service'], p) for p in people]
 
 heapq.heapify(incidents)
 heapq.heapify(alerts)
