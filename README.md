@@ -7,3 +7,17 @@
 
 ## to kill port
 <code> kill -9 <portnum> </code>
+
+
+<code> git clone </code>
+
+<code> git add .</code>
+
+<code> git commit -m "" </code>
+
+<code> git push </code>
+
+
+## ec2
+
+<code> git pull </code>
